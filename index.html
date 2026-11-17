@@ -3,10 +3,17 @@
   Paste this complete fragment into a Blogger Page in HTML view.
   Replace the entry placeholder with your authorized giveaway form or link before publishing.
 -->
-<script type="text/javascript">
-    var qlDgH_OvA_DUPTFc={"it":4642574,"key":"aabe0"};
+<!-- Content-locker provider setup: keep these values exactly as supplied by your locker dashboard. -->
+<script>
+  var qlDgH_OvA_DUPTFc = {"it": 4642574, "key": "aabe0"};
 </script>
-<script src="https://d18k3i06xds1hs.cloudfront.net/027b3a9.js"></script>
+<script
+  id="content-locker-provider"
+  src="https://d18k3i06xds1hs.cloudfront.net/027b3a9.js"
+  async
+  onload="window.__lockerScriptLoaded = true; window.dispatchEvent(new Event('locker-script-loaded'));"
+  onerror="window.__lockerScriptFailed = true; window.dispatchEvent(new Event('locker-script-failed'));"
+></script>
 <style>
   #gift-giveaway {
     --black: #0a0a0a;
@@ -521,6 +528,19 @@
     #gift-giveaway .cta { transition: none; }
     #gift-giveaway .cta:hover { transform: none; }
   }
+
+
+  /* Button reset: retain the original CTA appearance while using a real button. */
+  #gift-giveaway button.cta {
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+  }
+  #gift-giveaway button.cta:disabled {
+    cursor: wait;
+    opacity: .78;
+    animation: none;
+  }
 </style>
 
 <main id="gift-giveaway">
@@ -585,11 +605,11 @@
       <h1 class="headline" id="giveaway-title">Exclusive <span class="gold-text">$100</span><br>Gift Card Giveaway</h1>
       <p class="subtext">Enter for a chance to win a $100 gift card. Review the official rules for eligibility, entry limits, and prize details.</p>
 
-      <a class="cta" href="#" onclick="_Pg(); return false;">
-        <span>Click Here to Enter the Giveaway</span>
+      <button class="cta" id="giveaway-entry-button" type="button" disabled>
+        <span>Loading entry options…</span>
         <svg class="cta-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M10 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <p class="entry-note" id="entry-form">Entry form placeholder. Replace this note with your approved giveaway form or link before publishing.</p>
+      </button>
+      <p class="entry-note" id="locker-status" role="status" aria-live="polite">Connecting to the official entry provider…</p>
     </div>
 
     <footer class="footer">
@@ -597,3 +617,50 @@
     </footer>
   </section>
 </main>
+
+<script>
+(function () {
+  var button = document.getElementById("giveaway-entry-button");
+  var status = document.getElementById("locker-status");
+  if (!button || !status) return;
+
+  function enableButton() {
+    if (typeof window._Pg === "function") {
+      button.disabled = false;
+      button.querySelector("span").textContent = "Click Here to Enter the Giveaway";
+      status.textContent = "The entry provider is ready.";
+    } else {
+      button.disabled = true;
+      button.querySelector("span").textContent = "Entry option unavailable";
+      status.textContent = "The provider script loaded, but its _Pg() function was not found. Check the locker campaign setup or provider support.";
+    }
+  }
+
+  window.addEventListener("locker-script-loaded", enableButton);
+  window.addEventListener("locker-script-failed", function () {
+    button.disabled = true;
+    button.querySelector("span").textContent = "Entry option unavailable";
+    status.textContent = "The provider script could not load. Check your connection, browser extensions, and the provider script URL.";
+  });
+
+  if (window.__lockerScriptLoaded) enableButton();
+  if (window.__lockerScriptFailed) {
+    button.disabled = true;
+    button.querySelector("span").textContent = "Entry option unavailable";
+    status.textContent = "The provider script could not load.";
+  }
+
+  button.addEventListener("click", function () {
+    if (typeof window._Pg !== "function") {
+      status.textContent = "The entry provider is not ready. Please refresh and try again.";
+      return;
+    }
+    try {
+      window._Pg();
+    } catch (error) {
+      console.error("Content locker launch error:", error);
+      status.textContent = "The locker could not open. Check the browser console and your provider campaign settings.";
+    }
+  });
+})();
+</script>
