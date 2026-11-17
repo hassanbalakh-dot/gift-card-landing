@@ -1,0 +1,595 @@
+<!--
+  Blogger-ready gift card giveaway fragment.
+  Paste this complete fragment into a Blogger Page in HTML view.
+  Replace the entry placeholder with your authorized giveaway form or link before publishing.
+-->
+<style>
+  #gift-giveaway {
+    --black: #0a0a0a;
+    --surface: #11110f;
+    --gold: #FFD700;
+    --gold-deep: #DAA520;
+    --gold-light: #fff0a8;
+    --pink: #e642b5;
+    --white: #fbf8f0;
+    --muted: #c0b9aa;
+    --coin-size: clamp(280px, 34vw, 360px);
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: hidden;
+    padding: clamp(14px, 3.5vh, 32px) clamp(10px, 3vw, 28px);
+    background:
+      radial-gradient(ellipse at 50% 32%, rgba(218, 165, 32, .15), transparent 31rem),
+      radial-gradient(ellipse at 50% 100%, rgba(230, 66, 181, .05), transparent 27rem),
+      var(--black);
+    color: var(--white);
+    font-family: Montserrat, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #gift-giveaway,
+  #gift-giveaway * {
+    box-sizing: border-box;
+  }
+
+  #gift-giveaway .promo-card {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 720px);
+    margin: auto;
+    padding: clamp(22px, 4vw, 38px) clamp(18px, 5.2vw, 54px) 21px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, .72);
+    border-radius: 26px;
+    background:
+      radial-gradient(ellipse at 50% 24%, rgba(218, 165, 32, .08), transparent 56%),
+      linear-gradient(145deg, rgba(23, 22, 18, .98), rgba(12, 12, 11, .99) 65%);
+    box-shadow: 0 24px 90px rgba(0, 0, 0, .62), 0 0 35px rgba(218, 165, 32, .11), inset 0 1px 0 rgba(255, 240, 168, .08);
+    text-align: center;
+    animation: giveaway-fade-in .7s ease-out both;
+  }
+
+  #gift-giveaway .promo-card::before {
+    position: absolute;
+    z-index: -1;
+    inset: 7px;
+    border: 1px solid rgba(255, 215, 0, .12);
+    border-radius: 20px;
+    content: "";
+    pointer-events: none;
+  }
+
+  #gift-giveaway .site-header {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto 12px;
+    text-align: center;
+  }
+
+  #gift-giveaway .brand-title {
+    display: inline-block;
+    color: var(--gold);
+    font-size: clamp(21px, 4vw, 29px);
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: .055em;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-shadow: 0 5px 22px rgba(218, 165, 32, .15);
+  }
+
+  #gift-giveaway .brand-subtitle {
+    display: block;
+    margin-top: 7px;
+    color: #e3c466;
+    font-size: clamp(9px, 1.7vw, 11px);
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+  }
+
+  #gift-giveaway .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #gift-giveaway .eyebrow {
+    margin: 0;
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .24em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  /* Gold medallion, gift box, premium generic card, and pink side flourishes. */
+  #gift-giveaway .art-stage {
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 520px);
+    height: calc(var(--coin-size) + 60px);
+    flex: 0 0 auto;
+    margin: 3px auto 5px;
+  }
+
+  #gift-giveaway .art-stage::before {
+    position: absolute;
+    z-index: -1;
+    top: 5%;
+    left: 50%;
+    width: min(78%, 360px);
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(218, 165, 32, .13);
+    filter: blur(34px);
+    content: "";
+  }
+
+  #gift-giveaway .coin {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: var(--coin-size);
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border: 7px solid var(--gold-deep);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 31% 24%, rgba(255, 255, 255, .2), transparent 23%),
+      radial-gradient(circle at 45% 35%, #5b4517 0, #30250f 42%, #17140d 78%, #0b0b09 100%);
+    box-shadow:
+      inset 0 0 0 3px rgba(255, 240, 168, .65),
+      inset 0 0 0 9px rgba(218, 165, 32, .45),
+      inset 0 0 32px rgba(0, 0, 0, .75),
+      0 0 0 2px rgba(255, 215, 0, .24),
+      0 15px 34px rgba(0, 0, 0, .65),
+      0 0 35px rgba(255, 215, 0, .17);
+  }
+
+  #gift-giveaway .coin::before,
+  #gift-giveaway .coin::after {
+    position: absolute;
+    border: 1px solid rgba(255, 240, 168, .43);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+  }
+
+  #gift-giveaway .coin::before { inset: 13px; }
+  #gift-giveaway .coin::after { inset: 20px; border-style: dashed; border-color: rgba(255, 215, 0, .3); }
+
+  #gift-giveaway .star {
+    position: absolute;
+    z-index: 2;
+    color: var(--gold-light);
+    font-size: 15px;
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(255, 215, 0, .8);
+  }
+  #gift-giveaway .star-one { top: 28px; left: 15%; }
+  #gift-giveaway .star-two { top: 38px; right: 14%; font-size: 12px; }
+  #gift-giveaway .star-three { bottom: 53px; left: 12%; font-size: 11px; }
+  #gift-giveaway .star-four { right: 11%; bottom: 48px; font-size: 13px; }
+
+  #gift-giveaway .gift-box {
+    position: absolute;
+    z-index: 3;
+    top: 90%;
+    left: 50%;
+    width: clamp(38px, 11vw, 52px);
+    height: auto;
+    transform: translate(-50%, -50%);
+    overflow: visible;
+    filter: drop-shadow(0 11px 8px rgba(0, 0, 0, .55));
+  }
+
+  #gift-giveaway .authenticity-ribbon {
+    position: absolute;
+    z-index: 4;
+    top: calc(var(--coin-size) + 7px);
+    left: 50%;
+    width: min(78%, 266px);
+    padding: 11px 20px 12px;
+    transform: translateX(-50%);
+    border: 1px solid var(--gold-light);
+    background: linear-gradient(180deg, #fff0a8 0%, #FFD700 45%, #DAA520 100%);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, .52), inset 0 1px 0 rgba(255, 255, 255, .68);
+    color: #211806;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .24em;
+    line-height: 1;
+  }
+
+  #gift-giveaway .authenticity-ribbon::before,
+  #gift-giveaway .authenticity-ribbon::after {
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+    width: 22px;
+    height: 31px;
+    background: #aa7614;
+    content: "";
+  }
+  #gift-giveaway .authenticity-ribbon::before { left: -10px; transform: skewY(24deg); }
+  #gift-giveaway .authenticity-ribbon::after { right: -10px; transform: skewY(-24deg); }
+
+  /* Premium, unbranded charcoal gift card with gold details and a 3D-style bow. */
+  #gift-giveaway .gift-card {
+    position: absolute;
+    z-index: 6;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: min(225px, 66%);
+    aspect-ratio: 1.62;
+    overflow: hidden;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    border: 1px solid rgba(255, 240, 168, .94);
+    border-radius: 12px;
+    background:
+      radial-gradient(ellipse at 78% 18%, rgba(255, 215, 0, .2), transparent 44%),
+      linear-gradient(135deg, #292720 0%, #171612 54%, #090908 100%);
+    box-shadow:
+      inset 0 0 0 2px rgba(218, 165, 32, .35),
+      inset 0 12px 24px rgba(255, 255, 255, .035),
+      0 17px 32px rgba(0, 0, 0, .72),
+      0 0 0 1px rgba(0, 0, 0, .45);
+    text-align: left;
+  }
+
+  #gift-giveaway .gift-card::before {
+    position: absolute;
+    top: -22%;
+    left: -18%;
+    width: 37%;
+    height: 145%;
+    transform: rotate(31deg);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .15), transparent);
+    content: "";
+  }
+
+  #gift-giveaway .card-kicker {
+    position: absolute;
+    top: 17px;
+    left: 18px;
+    color: #e5c45b;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .2em;
+  }
+  #gift-giveaway .card-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    color: #fff0a8;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(15px, 4vw, 20px);
+    font-weight: 700;
+    letter-spacing: .17em;
+    text-align: center;
+    text-shadow: 0 2px 12px rgba(255, 215, 0, .22);
+  }
+  #gift-giveaway .card-value {
+    position: absolute;
+    right: 17px;
+    bottom: 14px;
+    color: #d8b84c;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 9px;
+    letter-spacing: .1em;
+  }
+  #gift-giveaway .card-corner {
+    position: absolute;
+    right: 13px;
+    top: 12px;
+    width: 24px;
+    height: 24px;
+    border-top: 1px solid rgba(255, 215, 0, .7);
+    border-right: 1px solid rgba(255, 215, 0, .7);
+  }
+  #gift-giveaway .card-bow {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    width: 58px;
+    height: 42px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .65));
+  }
+
+  #gift-giveaway .squiggle {
+    position: absolute;
+    z-index: -1;
+    top: 18%;
+    width: 48px;
+    height: 190px;
+    overflow: visible;
+    opacity: .82;
+    filter: drop-shadow(0 0 6px rgba(230, 66, 181, .28));
+    pointer-events: none;
+  }
+  #gift-giveaway .squiggle-left { left: 2px; }
+  #gift-giveaway .squiggle-right { right: 2px; transform: scaleX(-1); }
+  #gift-giveaway .squiggle path {
+    fill: none;
+    stroke: var(--pink);
+    stroke-linecap: round;
+    stroke-width: 2.3;
+  }
+
+  #gift-giveaway .headline {
+    max-width: 600px;
+    margin: 1px auto 0;
+    color: var(--white);
+    font-size: clamp(33px, 6vw, 50px);
+    font-weight: 900;
+    letter-spacing: -.055em;
+    line-height: 1.07;
+    text-wrap: balance;
+  }
+  #gift-giveaway .gold-text {
+    background: linear-gradient(180deg, #fff0a8 0%, #FFD700 48%, #DAA520 100%);
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+  }
+  #gift-giveaway .subtext {
+    max-width: 550px;
+    margin: 13px auto 0;
+    color: var(--muted);
+    font-size: clamp(13px, 2vw, 15px);
+    font-weight: 500;
+    line-height: 1.58;
+    text-wrap: pretty;
+  }
+
+  #gift-giveaway .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    width: min(100%, 430px);
+    min-height: 58px;
+    margin: 22px auto 0;
+    padding: 15px 20px;
+    border: 1px solid var(--gold-light);
+    border-radius: 10px;
+    background: linear-gradient(180deg, #fff0a8 0%, #FFD700 45%, #e3a90c 100%);
+    box-shadow: 0 0 0 1px rgba(218, 165, 32, .5), 0 5px 0 #96640d, 0 12px 29px rgba(255, 215, 0, .23);
+    color: #201704;
+    font-size: clamp(14px, 2.4vw, 17px);
+    font-weight: 900;
+    line-height: 1.25;
+    text-decoration: none;
+    animation: giveaway-cta-pulse 2.8s ease-in-out infinite;
+    transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+  }
+  #gift-giveaway .cta:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+    box-shadow: 0 0 0 1px rgba(218, 165, 32, .6), 0 8px 0 #96640d, 0 17px 34px rgba(255, 215, 0, .35), 0 0 34px rgba(255, 215, 0, .2);
+  }
+  #gift-giveaway .cta:active { transform: translateY(2px); }
+  #gift-giveaway .cta:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+  #gift-giveaway .cta-arrow { width: 17px; height: 17px; flex: 0 0 auto; }
+
+  #gift-giveaway .entry-note {
+    max-width: 540px;
+    margin: 15px auto 0;
+    color: #a79f91;
+    font-size: 10px;
+    line-height: 1.55;
+  }
+  #gift-giveaway .entry-note a {
+    color: #e4c76a;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  #gift-giveaway .footer {
+    margin: 17px 0 0;
+    padding-top: 13px;
+    border-top: 1px solid rgba(255, 215, 0, .15);
+    color: #8f887d;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+  #gift-giveaway .footer p { max-width: 590px; margin: 0 auto; }
+  #gift-giveaway .footer strong { color: #b5ad9e; }
+
+  @keyframes giveaway-fade-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes giveaway-cta-pulse {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(218, 165, 32, .5), 0 5px 0 #96640d, 0 12px 29px rgba(255, 215, 0, .2); }
+    50% { box-shadow: 0 0 0 1px rgba(218, 165, 32, .65), 0 5px 0 #96640d, 0 12px 34px rgba(255, 215, 0, .35), 0 0 27px rgba(255, 215, 0, .18); }
+  }
+
+  /* Phones, including narrow 320px screens. */
+  @media (max-width: 600px) {
+    #gift-giveaway { --coin-size: min(68vw, 300px); padding: 12px 9px; }
+    #gift-giveaway .promo-card { padding: 21px 15px 16px; border-radius: 20px; }
+    #gift-giveaway .promo-card::before { inset: 5px; border-radius: 15px; }
+    #gift-giveaway .site-header { margin-bottom: 10px; }
+    #gift-giveaway .art-stage { width: 100%; height: calc(var(--coin-size) + 56px); margin-top: 3px; }
+    #gift-giveaway .coin { border-width: 6px; }
+    #gift-giveaway .coin::before { inset: 11px; }
+    #gift-giveaway .coin::after { inset: 17px; }
+    #gift-giveaway .star-one { top: 22px; left: 13%; }
+    #gift-giveaway .star-two { top: 30px; right: 12%; }
+    #gift-giveaway .star-three { bottom: 43px; left: 10%; }
+    #gift-giveaway .star-four { right: 9%; bottom: 39px; }
+    #gift-giveaway .gift-box { width: 40px; }
+    #gift-giveaway .authenticity-ribbon { top: calc(var(--coin-size) + 5px); width: min(78%, 242px); padding: 10px 13px; font-size: 11px; }
+    #gift-giveaway .gift-card { width: min(225px, 72%); border-radius: 9px; }
+    #gift-giveaway .card-kicker { top: 12px; left: 13px; font-size: 6px; }
+    #gift-giveaway .card-title { font-size: clamp(14px, 4vw, 18px); }
+    #gift-giveaway .card-value { right: 12px; bottom: 10px; font-size: 8px; }
+    #gift-giveaway .card-corner { top: 9px; right: 9px; width: 19px; height: 19px; }
+    #gift-giveaway .card-bow { width: 48px; height: 35px; }
+    #gift-giveaway .squiggle { width: 35px; height: 150px; top: 20%; opacity: .64; }
+    #gift-giveaway .squiggle-left { left: 0; }
+    #gift-giveaway .squiggle-right { right: 0; }
+    #gift-giveaway .headline { font-size: clamp(31px, 8.5vw, 43px); }
+    #gift-giveaway .subtext { margin-top: 10px; font-size: 13px; }
+    #gift-giveaway .cta { min-height: 54px; margin-top: 18px; padding: 12px 11px; font-size: 13px; }
+    #gift-giveaway .entry-note { margin-top: 12px; font-size: 9px; }
+    #gift-giveaway .footer { margin-top: 12px; padding-top: 10px; font-size: 8px; }
+  }
+
+  @media (max-width: 360px) {
+    #gift-giveaway { --coin-size: min(66vw, 240px); }
+    #gift-giveaway .promo-card { padding-right: 12px; padding-left: 12px; }
+    #gift-giveaway .headline { font-size: clamp(29px, 8.3vw, 33px); }
+    #gift-giveaway .squiggle { width: 28px; }
+    #gift-giveaway .cta { gap: 7px; font-size: 12px; }
+  }
+
+  /* iPad / tablet portrait. */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    #gift-giveaway { --coin-size: 360px; padding: 25px 30px; }
+    #gift-giveaway .promo-card { width: min(100%, 740px); padding: 31px 54px 23px; }
+    #gift-giveaway .site-header { margin-bottom: 15px; }
+    #gift-giveaway .brand-title { font-size: clamp(27px, 3.8vw, 33px); }
+    #gift-giveaway .art-stage { height: 419px; margin-top: 4px; }
+    #gift-giveaway .gift-box { width: 54px; }
+    #gift-giveaway .authenticity-ribbon { top: calc(var(--coin-size) + 7px); width: 275px; font-size: 14px; }
+    #gift-giveaway .gift-card { width: min(225px, 66%); }
+    #gift-giveaway .card-title { font-size: 20px; }
+    #gift-giveaway .headline { font-size: clamp(46px, 5.4vw, 56px); }
+    #gift-giveaway .subtext { max-width: 565px; font-size: 16px; }
+    #gift-giveaway .cta { min-height: 63px; margin-top: 23px; font-size: 17px; }
+    #gift-giveaway .entry-note, #gift-giveaway .footer { font-size: 10px; }
+  }
+
+  /* Compact iPad / tablet landscape to fit 1024x768 viewports. */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) and (max-height: 850px) {
+    #gift-giveaway { --coin-size: 262px; padding: 12px 30px; }
+    #gift-giveaway .promo-card { padding: 14px 46px 12px; border-radius: 22px; }
+    #gift-giveaway .promo-card::before { inset: 5px; border-radius: 17px; }
+    #gift-giveaway .site-header { margin-bottom: 7px; }
+    #gift-giveaway .brand-title { font-size: 22px; }
+    #gift-giveaway .brand-subtitle { margin-top: 3px; font-size: 8px; }
+    #gift-giveaway .eyebrow { font-size: 8px; }
+    #gift-giveaway .art-stage { width: min(100%, 440px); height: 310px; margin: 1px auto; }
+    #gift-giveaway .coin { border-width: 5px; }
+    #gift-giveaway .coin::before { inset: 10px; }
+    #gift-giveaway .coin::after { inset: 15px; }
+    #gift-giveaway .star-one { top: 19px; left: 11%; font-size: 11px; }
+    #gift-giveaway .star-two { top: 27px; right: 10%; font-size: 9px; }
+    #gift-giveaway .star-three { bottom: 38px; left: 9%; font-size: 9px; }
+    #gift-giveaway .star-four { right: 8%; bottom: 34px; font-size: 10px; }
+    #gift-giveaway .gift-box { width: 42px; }
+    #gift-giveaway .authenticity-ribbon { top: 269px; width: 210px; padding: 8px 12px; font-size: 10px; }
+    #gift-giveaway .authenticity-ribbon::before, #gift-giveaway .authenticity-ribbon::after { height: 24px; }
+    #gift-giveaway .gift-card { width: min(172px, 66%); border-radius: 8px; }
+    #gift-giveaway .card-kicker { top: 8px; left: 9px; font-size: 4px; }
+    #gift-giveaway .card-title { font-size: 13px; }
+    #gift-giveaway .card-value { right: 9px; bottom: 8px; font-size: 6px; }
+    #gift-giveaway .card-corner { top: 7px; right: 7px; width: 16px; height: 16px; }
+    #gift-giveaway .card-bow { width: 40px; height: 29px; }
+    #gift-giveaway .squiggle { top: 15%; width: 36px; height: 128px; }
+    #gift-giveaway .headline { font-size: clamp(34px, 3.4vw, 40px); line-height: 1.02; }
+    #gift-giveaway .subtext { max-width: 600px; margin-top: 6px; font-size: 12px; line-height: 1.42; }
+    #gift-giveaway .cta { min-height: 48px; width: min(100%, 370px); margin-top: 12px; padding: 10px 15px; font-size: 13px; }
+    #gift-giveaway .entry-note { margin-top: 6px; font-size: 8px; }
+    #gift-giveaway .footer { margin-top: 7px; padding-top: 6px; font-size: 8px; line-height: 1.4; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #gift-giveaway .promo-card, #gift-giveaway .cta { animation: none; }
+    #gift-giveaway .cta { transition: none; }
+    #gift-giveaway .cta:hover { transform: none; }
+  }
+</style>
+
+<main id="gift-giveaway">
+  <section class="promo-card" aria-labelledby="giveaway-title">
+    <header class="site-header">
+      <div class="brand-title">Gift Card Giveaway</div>
+      <span class="brand-subtitle">A chance to win something special</span>
+    </header>
+
+    <div class="content">
+      <p class="eyebrow">Your golden opportunity</p>
+
+      <div class="art-stage" role="img" aria-label="Golden circular gift medallion with a gold gift box, elegant dark gift card, authenticity ribbon, and pink decorative flourishes">
+        <svg class="squiggle squiggle-left" viewBox="0 0 48 190" aria-hidden="true">
+          <path d="M25 3C3 17 43 30 22 44S4 69 27 80 44 103 19 115 4 139 26 150 40 171 17 187"/>
+        </svg>
+        <svg class="squiggle squiggle-right" viewBox="0 0 48 190" aria-hidden="true">
+          <path d="M25 3C3 17 43 30 22 44S4 69 27 80 44 103 19 115 4 139 26 150 40 171 17 187"/>
+        </svg>
+
+        <div class="coin" aria-hidden="true">
+          <span class="star star-one">✦</span>
+          <span class="star star-two">✦</span>
+          <span class="star star-three">✦</span>
+          <span class="star star-four">✦</span>
+          <svg class="gift-box" viewBox="0 0 180 190" aria-hidden="true">
+            <defs>
+              <linearGradient id="box-front" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a8"/><stop offset=".43" stop-color="#e3b330"/><stop offset="1" stop-color="#986017"/></linearGradient>
+              <linearGradient id="box-lid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff6cf"/><stop offset=".53" stop-color="#f0c34f"/><stop offset="1" stop-color="#b87920"/></linearGradient>
+              <linearGradient id="box-ribbon" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#fff5cf"/><stop offset=".48" stop-color="#f5d972"/><stop offset="1" stop-color="#b4771e"/></linearGradient>
+            </defs>
+            <ellipse cx="90" cy="173" rx="61" ry="10" fill="#000" opacity=".55"/>
+            <path d="M36 78h108v83c0 5-4 9-9 9H45c-5 0-9-4-9-9Z" fill="url(#box-front)" stroke="#ffe6a0" stroke-width="2"/>
+            <path d="M89 79h18v91H89z" fill="url(#box-ribbon)"/>
+            <path d="M26 63c0-5 4-9 9-9h110c5 0 9 4 9 9v22H26Z" fill="url(#box-lid)" stroke="#fff0bd" stroke-width="2"/>
+            <path d="M84 55h18v30H84z" fill="url(#box-ribbon)"/>
+            <path d="M93 55C62 53 53 31 62 24c11-9 29 7 31 31Z" fill="url(#box-lid)" stroke="#fff0bd" stroke-width="2"/>
+            <path d="M94 55c4-29 22-43 32-33 8 8-1 29-32 33Z" fill="url(#box-lid)" stroke="#fff0bd" stroke-width="2"/>
+            <path d="M43 95v53" stroke="#fff2c8" stroke-width="2" opacity=".48"/>
+            <path d="M137 96v48" stroke="#6f450e" stroke-width="2" opacity=".28"/>
+            <path d="M35 76h111" stroke="#fff4d1" stroke-width="2" opacity=".56"/>
+          </svg>
+
+          <div class="gift-card" aria-hidden="true">
+            <span class="card-kicker">A THOUGHTFUL SURPRISE</span>
+            <span class="card-title">GIFT CARD</span>
+            <span class="card-value">$100 VALUE</span>
+            <span class="card-corner"></span>
+            <svg class="card-bow" viewBox="0 0 56 40" aria-hidden="true">
+              <defs>
+                <linearGradient id="bow-gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff0a8"/><stop offset=".55" stop-color="#e7bd4a"/><stop offset="1" stop-color="#a36d18"/></linearGradient>
+              </defs>
+              <path d="M27 19C9 21 2 7 8 4c8-4 17 7 19 15Zm2 0C31 7 43 0 48 5c5 6-5 14-19 14Z" fill="url(#bow-gold)" stroke="#fff0a8" stroke-width="1.4"/>
+              <path d="M26 18h5v20h-5z" fill="#d6a633"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="authenticity-ribbon" aria-hidden="true">AUTHENTICITY</div>
+      </div>
+
+      <h1 class="headline" id="giveaway-title">Exclusive <span class="gold-text">$100</span><br>Gift Card Giveaway</h1>
+      <p class="subtext">Enter for a chance to win a $100 gift card. Review the official rules for eligibility, entry limits, and prize details.</p>
+
+      <a class="cta" href="#entry-form">
+        <span>Click Here to Enter the Giveaway</span>
+        <svg class="cta-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M10 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="entry-note" id="entry-form">Entry form placeholder. Replace this note with your approved giveaway form or link before publishing.</p>
+    </div>
+
+    <footer class="footer">
+      <p><strong>Template note:</strong> Add sponsor details, eligibility terms, privacy information, and complete official rules before publishing. This generic design is not affiliated with or endorsed by any specific brand. No entries are accepted until an authorized entry method is connected.</p>
+    </footer>
+  </section>
+</main>
