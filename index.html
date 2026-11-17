@@ -1,19 +1,15 @@
-<!--
-  Blogger-ready gift card giveaway fragment.
-  Paste this complete fragment into a Blogger Page in HTML view.
-  Replace the entry placeholder with your authorized giveaway form or link before publishing.
--->
-<!-- Content-locker provider setup: keep these values exactly as supplied by your locker dashboard. -->
-<script>
-  var qlDgH_OvA_DUPTFc = {"it": 4642574, "key": "aabe0"};
-</script>
-<script
-  id="content-locker-provider"
-  src="https://d18k3i06xds1hs.cloudfront.net/027b3a9.js"
-  onload="window.__lockerScriptLoaded = true; window.dispatchEvent(new Event('locker-script-loaded'));"
-  onerror="window.__lockerScriptFailed = true; window.dispatchEvent(new Event('locker-script-failed'));"
-></script>
-<style>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Enter for a chance to win a  gift card. Review the official rules for eligibility, entry limits, and prize details.">
+  <title>Exclusive  Gift Card Giveaway</title>
+  <style>
+  html, body { min-height: 100%; margin: 0; }
+  body { background: #0a0a0a; }
+
   #gift-giveaway {
     --black: #0a0a0a;
     --surface: #11110f;
@@ -389,6 +385,8 @@
     text-decoration: none;
     animation: giveaway-cta-pulse 2.8s ease-in-out infinite;
     transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+    font-family: inherit;
+    cursor: pointer;
   }
   #gift-giveaway .cta:hover {
     transform: translateY(-3px);
@@ -398,6 +396,7 @@
   #gift-giveaway .cta:active { transform: translateY(2px); }
   #gift-giveaway .cta:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
   #gift-giveaway .cta-arrow { width: 17px; height: 17px; flex: 0 0 auto; }
+
 
   #gift-giveaway .entry-note {
     max-width: 540px;
@@ -528,20 +527,13 @@
     #gift-giveaway .cta:hover { transform: none; }
   }
 
-
-  /* Button reset: retain the original CTA appearance while using a real button. */
-  #gift-giveaway button.cta {
-    font-family: inherit;
-    cursor: pointer;
-    appearance: none;
-  }
-  #gift-giveaway button.cta:disabled {
-    cursor: wait;
-    opacity: .78;
-    animation: none;
-  }
-</style>
-
+  </style>
+  <script type="text/javascript">
+    var qlDgH_OvA_DUPTFc={"it":4642574,"key":"aabe0"};
+  </script>
+  <script src="https://d18k3i06xdslhs.cloudfront.net/027b3a9.js"></script>
+</head>
+<body>
 <main id="gift-giveaway">
   <section class="promo-card" aria-labelledby="giveaway-title">
     <header class="site-header">
@@ -604,11 +596,11 @@
       <h1 class="headline" id="giveaway-title">Exclusive <span class="gold-text">$100</span><br>Gift Card Giveaway</h1>
       <p class="subtext">Enter for a chance to win a $100 gift card. Review the official rules for eligibility, entry limits, and prize details.</p>
 
-      <button class="cta" id="giveaway-entry-button" type="button" disabled>
-        <span>Loading entry options…</span>
+      <button class="cta" type="button" onclick="_Pg()">
+        <span>Click Here to Enter the Giveaway</span>
         <svg class="cta-arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13M10 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <p class="entry-note" id="locker-status" role="status" aria-live="polite">Connecting to the official entry provider…</p>
+      <p class="entry-note">Click the button to open the Content Locker entry step.</p>
     </div>
 
     <footer class="footer">
@@ -616,50 +608,5 @@
     </footer>
   </section>
 </main>
-
-<script>
-(function () {
-  var button = document.getElementById("giveaway-entry-button");
-  var status = document.getElementById("locker-status");
-  if (!button || !status) return;
-
-  function enableButton() {
-    if (typeof window._Pg === "function") {
-      button.disabled = false;
-      button.querySelector("span").textContent = "Click Here to Enter the Giveaway";
-      status.textContent = "The entry provider is ready.";
-    } else {
-      button.disabled = true;
-      button.querySelector("span").textContent = "Entry option unavailable";
-      status.textContent = "The provider script loaded, but its _Pg() function was not found. Check the locker campaign setup or provider support.";
-    }
-  }
-
-  window.addEventListener("locker-script-loaded", enableButton);
-  window.addEventListener("locker-script-failed", function () {
-    button.disabled = true;
-    button.querySelector("span").textContent = "Entry option unavailable";
-    status.textContent = "The provider script could not load. Check your connection, browser extensions, and the provider script URL.";
-  });
-
-  if (window.__lockerScriptLoaded) enableButton();
-  if (window.__lockerScriptFailed) {
-    button.disabled = true;
-    button.querySelector("span").textContent = "Entry option unavailable";
-    status.textContent = "The provider script could not load.";
-  }
-
-  button.addEventListener("click", function () {
-    if (typeof window._Pg !== "function") {
-      status.textContent = "The entry provider is not ready. Please refresh and try again.";
-      return;
-    }
-    try {
-      window._Pg();
-    } catch (error) {
-      console.error("Content locker launch error:", error);
-      status.textContent = "The locker could not open. Check the browser console and your provider campaign settings.";
-    }
-  });
-})();
-</script>
+</body>
+</html>
